@@ -1,4 +1,4 @@
-defmodule Oauth2ex.Mixfile do
+defmodule OAuth2Ex.Mixfile do
   use Mix.Project
 
   def project do
@@ -12,7 +12,7 @@ defmodule Oauth2ex.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger]]
+    [applications: [:logger, :httpoison, :cowboy, :plug]]
   end
 
   # Dependencies can be hex.pm packages:
@@ -25,6 +25,12 @@ defmodule Oauth2ex.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    []
+    [
+      {:httpoison, github: "edgurgel/httpoison"},
+      {:jsex, github: "talentdeficit/jsex"},
+      {:cowboy, "~> 1.0.0", optional: true},
+      {:plug, "~> 0.5.3", optional: true},
+      {:timex, "~> 0.12"}
+    ]
   end
 end

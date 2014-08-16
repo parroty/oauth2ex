@@ -1,0 +1,6 @@
+{
+  "access_token": "sample_access_token",
+  "expires_in": 3600,
+  "refresh_token": "sample_refresh_token",
+  "token_type": "Bearer"
+}
