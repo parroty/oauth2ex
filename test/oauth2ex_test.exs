@@ -2,13 +2,13 @@ defmodule OAuth2ExTest do
   use ExUnit.Case
 
   def config do
-    OAuth2Ex.configure(
-      id: "sample_client_id",
-      secret: "sample_secret",
-      authorize_url: OAuth2Ex.Site.Google.authorize_url,
-      token_url: OAuth2Ex.Site.Google.token_url,
-      scope: OAuth2Ex.Site.Google.scope,
-      callback_url: "http://localhost:3000/oauth2callback"
+    OAuth2Ex.config(
+      id:            "sample_client_id",
+      secret:        "sample_secret",
+      authorize_url: "https://accounts.google.com/o/oauth2/auth",
+      token_url:     "https://accounts.google.com/o/oauth2/token",
+      scope:         "https://www.googleapis.com/auth/bigquery",
+      callback_url:  "http://localhost:3000/oauth2callback"
     )
   end
 
@@ -27,10 +27,10 @@ defmodule OAuth2ExTest do
 
   test "save token to file" do
     token = %OAuth2Ex.Token{
-      access_token: "sample_access_token",
-      expires_in: 3600,
+      access_token:  "sample_access_token",
+      expires_in:    3600,
       refresh_token: "sample_refresh_token",
-      token_type: "Bearer"
+      token_type:    "Bearer"
     }
 
     file_name = "test/fixture/save_token.json"

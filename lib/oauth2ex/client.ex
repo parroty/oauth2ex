@@ -1,4 +1,4 @@
-defmodule OAuth2Ex.Adapter do
+defmodule OAuth2Ex.Client do
   defmacro __using__(_opts) do
     quote do
       def config do

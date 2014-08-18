@@ -1,5 +1,5 @@
 defmodule OAuth2Ex do
-  def configure(params) do
+  def config(params) do
     %OAuth2Ex.Config{
       id:            params[:id],
       secret:        params[:secret],
