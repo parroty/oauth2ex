@@ -64,3 +64,19 @@ defmodule OAuth2Ex.Sample.Google do
   end
 end
 ```
+
+### Config parameters
+`OAuth2Ex.config` method requires the following parameters.
+
+Parameter        | Description
+---------------- | -------------
+id(*)            | Client ID to identify the user to access.
+secret(*)        | Client secret to authorize the token retrieval.
+authorize_url(*) | Authorization url to retrieve a code to start authentication.
+token_url(*)     | Token url to retrieve token.
+scope            | Scope to identify the allowed scope within the provider's API. Some providers does not have one.
+callback_url     | Callback url for receiving code, which is redirected from authorize_url.
+token_store      | File path to store retrieved token.
+header_prefix    | HTTP Access header for specifying OAuth token. It defaults to "Bearer", which sends `Authorization: Bearer xxxx` header.
+response_type    | Response type when accessing authorization url. It defaults to "code".
+(*) indicates mandatory parameter.
