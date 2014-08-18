@@ -1,6 +1,6 @@
 defmodule OAuth2Ex.Sample.Dropbox do
   @moduledoc """
-  Sample setting for Dropbox OAuth2.0 API.
+  Sample setting for Dropbox OAuth 2.0 API.
 
   API: https://www.dropbox.com/developers/core/docs
   App: https://www.dropbox.com/developers/apps/
@@ -22,8 +22,8 @@ defmodule OAuth2Ex.Sample.Dropbox do
     end
   end
 
-  def request_token do
-    {:ok, message} = Client.request_token(port: 4000)
+  def retrieve_token do
+    {:ok, message} = Client.retrieve_token(receiver_port: 4000)
     IO.puts message
   end
 

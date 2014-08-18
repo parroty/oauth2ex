@@ -45,7 +45,7 @@ defmodule OAuth2Ex.Client do
         OAuth2Ex.HTTP.request(__MODULE__, method, url, body, headers, options)
       end
 
-      def request_token(options) do
+      def retrieve_token(options) do
         OAuth2Ex.Token.Requester.run(__MODULE__, options)
       end
 

@@ -1,11 +1,16 @@
 defmodule OAuth2Ex.Sample.Google do
   @moduledoc """
-  Sample setting for Google OAuth2.0 API.
+  Sample setting for Google OAuth 2.0 API.
 
   API: https://developers.google.com/accounts/docs/OAuth2
   """
 
   defmodule Client do
+    @moduledoc """
+    Client configuration for specifying required parameters
+    for accessing OAuth 2.0 server.
+    """
+
     use OAuth2Ex.Client
 
     def config do
@@ -21,11 +26,19 @@ defmodule OAuth2Ex.Sample.Google do
     end
   end
 
-  def request_token do
-    {:ok, message} = Client.request_token(port: 4000)
+  @doc """
+  Retrieve the OAuth token from the server, and store to the file
+  in the specified token_store path.
+  """
+  def retrieve_token do
+    {:ok, message} = Client.retrieve_token(receiver_port: 4000)
     IO.puts message
   end
 
+  @doc """
+  List the projects by calling Google BigQuery API - project list.
+  API: https://developers.google.com/bigquery/docs/reference/v2/#Projects
+  """
   def projects do
     response = Client.get("https://www.googleapis.com/bigquery/v2/projects")
     response.body |> JSEX.decode!

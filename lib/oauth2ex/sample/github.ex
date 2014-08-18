@@ -1,6 +1,6 @@
 defmodule OAuth2Ex.Sample.GitHub do
   @moduledoc """
-  Sample setting for GitHub OAuth2.0 API.
+  Sample setting for GitHub OAuth 2.0 API.
 
   API: https://developer.github.com/v3/oauth/
   App: https://github.com/settings/applications
@@ -23,8 +23,8 @@ defmodule OAuth2Ex.Sample.GitHub do
     end
   end
 
-  def request_token do
-    {:ok, message} = Client.request_token(port: 4000)
+  def retrieve_token do
+    {:ok, message} = Client.retrieve_token(receiver_port: 4000)
     IO.puts message
   end
 

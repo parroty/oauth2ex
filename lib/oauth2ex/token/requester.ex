@@ -1,6 +1,6 @@
 defmodule OAuth2Ex.Token.Requester do
   def run(adapter, options) do
-    port = options[:port] || 4000
+    port = options[:receiver_port] || 4000
     timeout = options[:timoeut] || 60_000
 
     Plug.Adapters.Cowboy.http(OAuth2Ex.Token.Receiver,
