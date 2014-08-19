@@ -51,14 +51,7 @@ defmodule OAuth2Ex do
       grant_type:    "authorization_code"
     ] |> join
 
-    headers = [
-      {"Content-Type", "application/x-www-form-urlencoded"},
-      {"Accept", "application/json"}
-    ]
-
-    HTTPoison.post(config.token_url, [query_params], headers).body
-      |> JSEX.decode!
-      |> parse_token(config)
+    do_get_token(config, query_params)
   end
 
   @doc """
@@ -72,16 +65,19 @@ defmodule OAuth2Ex do
       grant_type:    "refresh_token"
     ] |> join
 
+    new_token = do_get_token(config, query_params)
+    %{new_token | refresh_token: token.refresh_token}
+  end
+
+  defp do_get_token(config, query_params) do
     headers = [
       {"Content-Type", "application/x-www-form-urlencoded"},
       {"Accept", "application/json"}
     ]
 
-    new_token = HTTPoison.post(config.token_url, [query_params], headers).body
-                  |> JSEX.decode!
-                  |> parse_token(config)
-
-    %{new_token | refresh_token: token.refresh_token}
+    HTTPoison.post(config.token_url, [query_params], headers).body
+      |> JSEX.decode!
+      |> parse_token(config)
   end
 
   defp parse_token(json, config) do
