@@ -1,5 +1,6 @@
 {
   "access_token": "sample_access_token",
+  "auth_header": null,
   "expires_at": null,
   "expires_in": 3600,
   "refresh_token": "sample_refresh_token",

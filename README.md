@@ -8,10 +8,44 @@ A OAuth 2.0 client library for elixir. It provides the following functionalities
 
 
 ### Usage
-#### Web Application
-
-#### Stand-alone Application
 The following is an example to call Google's BigQuery API.
+
+#### Manual token retrieval using browser
+An example to uses OAuth2Ex helper methods to retrieve OAuth token.
+
+```Elixir
+# Setup config parameters (retrive required parameters from OAuth 2.0 providers).
+config = OAuth2Ex.config(
+  id:            System.get_env("GOOGLE_API_CLIENT_ID"),
+  secret:        System.get_env("GOOGLE_API_CLIENT_SECRET"),
+  authorize_url: "https://accounts.google.com/o/oauth2/auth",
+  token_url:     "https://accounts.google.com/o/oauth2/token",
+  scope:         "https://www.googleapis.com/auth/bigquery",
+  callback_url:  "urn:ietf:wg:oauth:2.0:oob",
+  token_store:   System.user_home <> "/oauth2ex.google.token"
+)
+# -> %OAuth2Ex.Config{authorize_url: "https://accounts.google.com/o/oauth2/auth"...
+
+# Get authentication parameters.
+OAuth2Ex.get_authorize_url(config)
+# -> https://accounts.google.com/o/oauth2/auth?client_id=1...
+#    Open this url using browser and acquire code string.
+
+# Acquire code from browser and a get access token using the code.
+code = "xxx..."
+token = OAuth2Ex.get_token(config, code)
+# -> %OAuth2Ex.Token{access_token: "xxx.......",
+#    expires_at: 1408467022, expires_in: 3600,
+#    refresh_token: "yyy....",
+#    token_type: "Bearer"}
+
+# Access API server using token.
+response = OAuth2Ex.HTTP.get(token, "https://www.googleapis.com/bigquery/v2/projects")
+# -> %HTTPoison.Response{body: "{\n \"kind\": \"bigquery#projectList...
+```
+
+#### Automatic token retrieval using local callback server.
+An example to uses local server to automates the token retrieval.
 - The `retrieve_token` method retrieves the OAuth token and store it locally.
     - This method-call starts up local web server with specified :receiver_port to receive callback from OAuth 2.0 server.
 - The `project` method calls Google's BigQuery API using the pre-acquired OAuth token.
@@ -77,6 +111,6 @@ token_url(*)     | Token url to retrieve token.
 scope            | Scope to identify the allowed scope within the provider's API. Some providers does not have one.
 callback_url     | Callback url for receiving code, which is redirected from authorize_url.
 token_store      | File path to store retrieved token.
-header_prefix    | HTTP Access header for specifying OAuth token. It defaults to "Bearer", which sends `Authorization: Bearer xxxx` header.
+auth_header      | HTTP Access header for specifying OAuth token. It defaults to "Bearer", which sends `Authorization: Bearer xxxx` header.
 response_type    | Response type when accessing authorization url. It defaults to "code".
 (*) indicates mandatory parameter.

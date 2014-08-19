@@ -1,6 +1,11 @@
 defmodule OAuth2ExClientTest do
   use ExUnit.Case
 
+  def mandatory_params do
+    [ id: "id", secret: "secret",
+      authorize_url: "authorize_url", token_url: "token_url" ]
+  end
+
   defmodule EmptyClient do
     use OAuth2Ex.Client
   end
@@ -10,9 +15,14 @@ defmodule OAuth2ExClientTest do
     def config, do: OAuth2Ex.config([])
   end
 
+  defmodule BasicgParameterClient do
+    use OAuth2Ex.Client
+    def config, do: OAuth2Ex.config(OAuth2ExClientTest.mandatory_params)
+  end
+
   defmodule InvalidTokenStoreClient do
     use OAuth2Ex.Client
-    def config, do: OAuth2Ex.config(token_store: "invalidfilepath")
+    def config, do: OAuth2Ex.config(OAuth2ExClientTest.mandatory_params ++ [token_store: "invalidfilepath"])
   end
 
   test "using empty client throws error" do
@@ -22,10 +32,17 @@ defmodule OAuth2ExClientTest do
     end
   end
 
+  test "using nil parameter client throws missing param error" do
+    message = ~r/:id parameter is missing/
+    assert_raise OAuth2Ex.Error, message, fn ->
+      NilParameterClient.retrieve_token
+    end
+  end
+
   test "using nil parameter client throws error for accessing token" do
     message = ~r/token_store parameter is missing in the specified OAuth2Ex.Config struct: %OAuth2Ex.Config{.+}./
     assert_raise OAuth2Ex.Error, message, fn ->
-      NilParameterClient.token
+      BasicgParameterClient.token
     end
   end
 
