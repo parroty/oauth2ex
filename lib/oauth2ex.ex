@@ -86,17 +86,20 @@ defmodule OAuth2Ex do
       expires_in:    json["expires_in"],
       refresh_token: json["refresh_token"],
       token_type:    json["token_type"],
-      auth_header: config.auth_header
+      auth_header:   config.auth_header
     }
 
     if token.expires_in do
-      expires_at = Timex.Date.now
-                     |> Timex.Date.shift(secs: token.expires_in)
-                     |> Timex.Date.to_secs
-      %{token | expires_at: expires_at}
+      %{token | expires_at: calc_expires_at(token.expires_in)}
     else
       token
     end
+  end
+
+  defp calc_expires_at(expires_in) do
+    Timex.Date.now
+      |> Timex.Date.shift(secs: expires_in)
+      |> Timex.Date.to_secs
   end
 
   defp join(params) do
