@@ -22,7 +22,7 @@ defmodule OAuth2Ex.Sample.Dropbox do
         token_url:     "https://api.dropbox.com/1/oauth2/token",
         scope:         [],
         callback_url:  "http://localhost:4000",
-        token_store:   System.user_home <> "/oauth2ex.dropbox.token",
+        token_store:   %OAuth2Ex.FileStorage{file_name: System.user_home <> "/oauth2ex.dropbox.token"}
       )
     end
   end

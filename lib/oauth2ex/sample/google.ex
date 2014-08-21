@@ -21,7 +21,7 @@ defmodule OAuth2Ex.Sample.Google do
         token_url:     "https://accounts.google.com/o/oauth2/token",
         scope:         "https://www.googleapis.com/auth/bigquery",
         callback_url:  "http://localhost:4000",
-        token_store:   System.user_home <> "/oauth2ex.google.token"
+        token_store:   %OAuth2Ex.FileStorage{file_name: System.user_home <> "/oauth2ex.google.token"}
       )
     end
   end
@@ -34,6 +34,12 @@ defmodule OAuth2Ex.Sample.Google do
     {:ok, message} = Client.retrieve_token(receiver_port: 4000)
     IO.puts message
   end
+
+  @doc """
+  Refresh the OAuth access_token from the refresh_token, as
+  Google's access token has expiration time.
+  """
+  def refresh_token, do: Client.refresh_token
 
   @doc """
   List the projects by calling Google BigQuery API.

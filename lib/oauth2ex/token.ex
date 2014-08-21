@@ -4,7 +4,7 @@ defmodule OAuth2Ex.Token do
   """
 
   defstruct access_token: nil, expires_in: nil, refresh_token: nil, token_type: nil, expires_at: nil,
-            auth_header: nil, storage: nil, config: nil
+            auth_header: "Bearer", storage: nil, config: nil
 
   @doc """
   Set storage information to the Token struct.
@@ -18,9 +18,22 @@ defmodule OAuth2Ex.Token do
   """
   def save(token) do
     if storage = token.storage do
-      storage.module.save(token, storage)
+      token = storage.module.save(token, storage)
+      {:ok, token}
     else
-      token
+      {:error, token}
+    end
+  end
+
+  @doc """
+  Save token to the location specified by the module defined as :storage key.
+  """
+  def save!(token) do
+    case save(token) do
+      {:ok, token} ->
+        token
+      {:error, token} ->
+        raise %OAuth2Ex.Error{message: "Failed to save token. Toekn.storage = #{inspect token.stoage}"}
     end
   end
 

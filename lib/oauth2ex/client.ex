@@ -26,6 +26,13 @@ defmodule OAuth2Ex.Client do
       end
 
       @doc """
+      A method to refresh token.
+      """
+      def refresh_token do
+        OAuth2Ex.refresh_token(config, token)
+      end
+
+      @doc """
       Send HTTP GET request with specified parameters and OAuth token.
       """
       def get(url, headers \\ [], options \\ []) do

@@ -1,6 +1,6 @@
 {
   "access_token": "sample_access_token",
-  "auth_header": null,
+  "auth_header": "Bearer",
   "config": null,
   "expires_at": null,
   "expires_in": 3600,

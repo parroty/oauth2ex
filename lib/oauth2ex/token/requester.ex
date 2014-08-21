@@ -38,7 +38,7 @@ defmodule OAuth2Ex.Token.Requester do
   def get_token(code, adapter) do
     config = adapter.config
     token = OAuth2Ex.get_token(config, code)
-    OAuth2Ex.Token.Storage.save_to_file(token, config.token_store)
+    OAuth2Ex.Token.save(token)
     Plug.Adapters.Cowboy.shutdown(OAuth2Ex.Token.Receiver.HTTP)
   end
 

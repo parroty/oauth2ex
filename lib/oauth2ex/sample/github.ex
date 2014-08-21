@@ -22,8 +22,7 @@ defmodule OAuth2Ex.Sample.GitHub do
         token_url:     "https://github.com/login/oauth/access_token",
         scope:         ["public_repo"],
         callback_url:  "http://localhost:4000",
-        token_store:   System.user_home <> "/oauth2ex.github.token",
-        auth_header:   "token" # Authorization: token OAUTH-TOKEN
+        token_store:   %OAuth2Ex.FileStorage{file_name: System.user_home <> "/oauth2ex.github.token"}
       )
     end
   end
