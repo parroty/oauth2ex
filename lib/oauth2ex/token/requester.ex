@@ -1,4 +1,11 @@
 defmodule OAuth2Ex.Token.Requester do
+  @moduledoc """
+  Token receiver to listen callback from OAuth 2.0 server.
+  """
+
+  @doc """
+  Start the listen server with specified port. When message is received, navigate user to authenticate using browser.
+  """
   def run(adapter, options) do
     port = options[:receiver_port] || 4000
     timeout = options[:timoeut] || 60_000
@@ -25,6 +32,9 @@ defmodule OAuth2Ex.Token.Requester do
     end
   end
 
+  @doc """
+  Get token from the server and store it into the file.
+  """
   def get_token(code, adapter) do
     config = adapter.config
     token = OAuth2Ex.get_token(config, code)

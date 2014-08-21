@@ -16,11 +16,12 @@ defmodule OAuth2Ex.Client do
       A method to return pre-retrieved token in the file.
       """
       def token do
-        if path = config.token_store do
-          OAuth2Ex.Token.Storage.load_from_file(path)
-        else
-          raise %OAuth2Ex.Error{
-            message: "token_store parameter is missing in the specified OAuth2Ex.Config struct: #{inspect config}."}
+        case config.token_store do
+          storage when is_map(storage) ->
+            OAuth2Ex.Token.load(storage)
+          _ ->
+            raise %OAuth2Ex.Error{
+              message: "token_store parameter is missing or invalid for the specified OAuth2Ex.Config struct: #{inspect config}."}
         end
       end
 

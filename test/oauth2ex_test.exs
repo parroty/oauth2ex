@@ -37,13 +37,13 @@ defmodule OAuth2ExTest do
     file_name = "test/fixture/save_token.json"
 
     File.rm(file_name)
-    OAuth2Ex.Token.Storage.save_to_file(token, file_name)
+    token = OAuth2Ex.Token.storage(token, %OAuth2Ex.FileStorage{file_name: file_name})
+    OAuth2Ex.Token.save(token)
     assert File.exists?(file_name) == true
   end
 
   test "load token from file" do
-    file_name = "test/fixture/load_token.json"
-    token = OAuth2Ex.Token.Storage.load_from_file(file_name)
+    token = OAuth2Ex.Token.load(%OAuth2Ex.FileStorage{file_name: "test/fixture/load_token.json"})
 
     assert token.access_token == "sample_access_token"
     assert token.expires_in == 3600

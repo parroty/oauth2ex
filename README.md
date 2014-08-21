@@ -46,10 +46,14 @@ response = OAuth2Ex.HTTP.get(token, "https://www.googleapis.com/bigquery/v2/proj
 # -> %HTTPoison.Response{body: "{\n \"kind\": \"bigquery#projectList...
 
 # Save token to a file for later use.
-OAuth2Ex.Token.Storage.save_to_file(token, "test.token")
+token = OAuth2Ex.Token.storage(token, %OAuth2Ex.FileStorage{file_name: "test.token"})
+OAuth2Ex.Token.save(token)
 
 # Load previously saved token from the file.
-token = OAuth2Ex.Token.Storage.load_from_file("test.token")
+token = OAuth2Ex.Token.load(%OAuth2Ex.FileStorage{file_name: "test.token"})
+
+# refresh token
+token = OAuth2Ex.refresh_token(config, token)
 ```
 
 #### Automatic token retrieval using local callback server.
@@ -82,7 +86,7 @@ defmodule OAuth2Ex.Sample.Google do
         token_url:     "https://accounts.google.com/o/oauth2/token",
         scope:         "https://www.googleapis.com/auth/bigquery",
         callback_url:  "http://localhost:4000",
-        token_store:   System.user_home <> "/oauth2ex.google.token"
+        token_store:   %OAuth2Ex.FileStorage{file_name: System.user_home <> "/oauth2ex.google.token}"
       )
     end
   end

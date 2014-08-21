@@ -57,16 +57,34 @@ defmodule OAuth2Ex do
   @doc """
   Refresh access token using refresh token for when access token is expired.
   """
-  def refresh_token(config, token) do
-    query_params = [
-      refresh_token: token.refresh_token,
-      client_id:     config.id,
-      client_secret: config.secret,
-      grant_type:    "refresh_token"
-    ] |> join
+  def refresh_token(config, token, options \\ [force: false]) do
+    IO.puts expired?(token)
+    if expired?(token) || options[:force] do
+      query_params = [
+        refresh_token: token.refresh_token,
+        client_id:     config.id,
+        client_secret: config.secret,
+        grant_type:    "refresh_token"
+      ] |> join
 
-    new_token = do_get_token(config, query_params)
-    %{new_token | refresh_token: token.refresh_token}
+      new_token = do_get_token(config, query_params)
+      OAuth2Ex.Token.save(%{new_token | refresh_token: token.refresh_token, storage: token.storage})
+    else
+      token
+    end
+  end
+
+  defp expired?(token) do
+    if token.expires_at do
+      expires_at = Timex.Date.from(token.expires_at, :secs)
+      if Timex.Date.diff(Timex.Date.now, expires_at, :secs) <= 0 do
+        true
+      else
+        false
+      end
+    else
+      false
+    end
   end
 
   defp do_get_token(config, query_params) do

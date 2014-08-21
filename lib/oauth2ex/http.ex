@@ -50,6 +50,7 @@ defmodule OAuth2Ex.HTTP do
 
   @doc """
   Send http requests with specified parameters and OAuth token.
+      options[:refresh] indicates whether to refresh token when it's expired. It defaults to true.
   """
   def request(token, method, url, body, headers, options) when is_map(token) do
     oauth_header = [{"Authorization", "#{token.auth_header} #{token.access_token}"}]
