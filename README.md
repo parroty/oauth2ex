@@ -6,6 +6,8 @@ A OAuth 2.0 client library for elixir. It provides the following functionalities
 - Caching the acquired token locally, and refreshing the token when the it's expired.
 - HTTP client access by specifying OAuth2 access token.
 
+It's pretty much work in progress yet, and APIs will likely to be change.
+The `OAuth2Ex.Sample` modules contains example for several API servers, like Google, GitHub and Dropbox.
 
 ### Usage
 The following is an example to call Google's BigQuery API.
@@ -53,7 +55,7 @@ token = OAuth2Ex.Token.Storage.load_from_file("test.token")
 #### Automatic token retrieval using local callback server.
 An example to uses local server to automates the token retrieval.
 - The `retrieve_token` method retrieves the OAuth token and store it locally.
-    - This method-call starts up local web server with specified :receiver_port to receive callback from OAuth 2.0 server.
+    - This method-call starts up local web server with specified `:receiver_port` to listen callback from OAuth 2.0 server.
 - The `project` method calls Google's BigQuery API using the pre-acquired OAuth token.
 
 ```Elixir
