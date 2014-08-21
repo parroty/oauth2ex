@@ -7,6 +7,11 @@ defmodule OAuth2Ex.Sample.GitHub do
   """
 
   defmodule Client do
+    @moduledoc """
+    Client configuration for specifying required parameters
+    for accessing OAuth 2.0 server.
+    """
+
     use OAuth2Ex.Client
 
     def config do
@@ -23,11 +28,19 @@ defmodule OAuth2Ex.Sample.GitHub do
     end
   end
 
+  @doc """
+  Retrieve the OAuth token from the server, and store to the file
+  in the specified token_store path.
+  """
   def retrieve_token do
     {:ok, message} = Client.retrieve_token(receiver_port: 4000)
     IO.puts message
   end
 
+  @doc """
+  List the authorizations by calling GitHub API.
+  API: https://developer.github.com/v3/oauth_authorizations/
+  """
   def get_authorization do
     response = Client.get("https://api.github.com/authorizations")
     response.body |> JSEX.decode!

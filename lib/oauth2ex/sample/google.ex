@@ -36,7 +36,7 @@ defmodule OAuth2Ex.Sample.Google do
   end
 
   @doc """
-  List the projects by calling Google BigQuery API - project list.
+  List the projects by calling Google BigQuery API.
   API: https://developers.google.com/bigquery/docs/reference/v2/#Projects
   """
   def projects do

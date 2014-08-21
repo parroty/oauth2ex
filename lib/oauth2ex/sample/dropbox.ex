@@ -7,6 +7,11 @@ defmodule OAuth2Ex.Sample.Dropbox do
   """
 
   defmodule Client do
+    @moduledoc """
+    Client configuration for specifying required parameters
+    for accessing OAuth 2.0 server.
+    """
+
     use OAuth2Ex.Client
 
     def config do
@@ -22,11 +27,19 @@ defmodule OAuth2Ex.Sample.Dropbox do
     end
   end
 
+  @doc """
+  Retrieve the OAuth token from the server, and store to the file
+  in the specified token_store path.
+  """
   def retrieve_token do
     {:ok, message} = Client.retrieve_token(receiver_port: 4000)
     IO.puts message
   end
 
+  @doc """
+  List the accounts by calling Dropwbox API.
+  API: https://www.dropbox.com/developers/core/docs#account-info
+  """
   def get_account do
     response = Client.get("https://api.dropbox.com/1/account/info")
     response.body |> JSEX.decode!

@@ -27,7 +27,7 @@ config = OAuth2Ex.config(
 # -> %OAuth2Ex.Config{authorize_url: "https://accounts.google.com/o/oauth2/auth"...
 
 # Get authentication parameters.
-OAuth2Ex.get_authorize_url(config)
+IO.puts OAuth2Ex.get_authorize_url(config)
 # -> https://accounts.google.com/o/oauth2/auth?client_id=1...
 #    Open this url using browser and acquire code string.
 
@@ -42,6 +42,12 @@ token = OAuth2Ex.get_token(config, code)
 # Access API server using token.
 response = OAuth2Ex.HTTP.get(token, "https://www.googleapis.com/bigquery/v2/projects")
 # -> %HTTPoison.Response{body: "{\n \"kind\": \"bigquery#projectList...
+
+# Save token to a file for later use.
+OAuth2Ex.Token.Storage.save_to_file(token, "test.token")
+
+# Load previously saved token from the file.
+token = OAuth2Ex.Token.Storage.load_from_file("test.token")
 ```
 
 #### Automatic token retrieval using local callback server.
