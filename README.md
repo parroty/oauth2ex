@@ -1,4 +1,4 @@
-# OAuth2Ex
+# OAuth2Ex [![Build Status](https://secure.travis-ci.org/parroty/oauth2ex.png?branch=master "Build Status")](http://travis-ci.org/parroty/oauth2ex)
 
 
 An OAuth 2.0 client library for elixir. It provides the following functionalities.
