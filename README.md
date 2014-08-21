@@ -1,7 +1,7 @@
 # OAuth2Ex
 
 
-A OAuth 2.0 client library for elixir. It provides the following functionalities.
+An OAuth 2.0 client library for elixir. It provides the following functionalities.
 - OAuth token retrieval by communicating with OAuth 2.0 server.
 - Caching the acquired token locally, and refreshing the token when the it's expired.
 - HTTP client access by specifying OAuth2 access token.
@@ -52,7 +52,7 @@ OAuth2Ex.Token.save(token)
 # Load previously saved token from the file.
 token = OAuth2Ex.Token.load(%OAuth2Ex.FileStorage{file_name: "test.token"})
 
-# refresh token
+# Refresh access_token from refresh_token.
 token = OAuth2Ex.refresh_token(config, token)
 ```
 
