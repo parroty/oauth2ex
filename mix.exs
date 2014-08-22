@@ -5,6 +5,7 @@ defmodule OAuth2Ex.Mixfile do
     [app: :oauth2ex,
      version: "0.0.1",
      elixir: "~> 0.15.0",
+     test_coverage: [tool: ExCoveralls],
      deps: deps]
   end
 
@@ -27,10 +28,11 @@ defmodule OAuth2Ex.Mixfile do
   defp deps do
     [
       {:httpoison, github: "edgurgel/httpoison"},
-      {:jsex, github: "talentdeficit/jsex"},
+      {:jsex, "~> 2.0"},
       {:cowboy, "~> 1.0.0", optional: true},
       {:plug, "~> 0.5.3", optional: true},
-      {:timex, "~> 0.12"}
+      {:timex, "~> 0.12"},
+      {:excoveralls, "~> 0.3", only: :dev}
     ]
   end
 end
