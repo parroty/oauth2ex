@@ -4,7 +4,7 @@
 An OAuth 2.0 client library for elixir. It provides the following functionalities.
 - OAuth token retrieval by communicating with OAuth 2.0 server.
 - Caching the acquired token locally, and refreshing the token when the it's expired.
-- HTTP client access by specifying OAuth2 access token.
+- HTTP client access by specifying OAuth2 access token. It uses httpoison (https://github.com/edgurgel/httpoison) as http client library.
 
 It's pretty much work in progress yet, and APIs will likely to be change.
 The `OAuth2Ex.Sample` modules contains example for several API servers, like Google, GitHub and Dropbox.
@@ -105,7 +105,7 @@ defmodule OAuth2Ex.Sample.Google do
   API: https://developers.google.com/bigquery/docs/reference/v2/#Projects
   """
   def projects do
-    response = Client.get("https://www.googleapis.com/bigquery/v2/projects")
+    response = OAuth2Ex.HTTP.get(Client.token, "https://www.googleapis.com/bigquery/v2/projects")
     response.body |> JSEX.decode!
   end
 end
