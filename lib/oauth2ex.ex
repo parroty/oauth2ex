@@ -104,7 +104,8 @@ defmodule OAuth2Ex do
       expires_in:    json["expires_in"],
       refresh_token: json["refresh_token"],
       token_type:    json["token_type"],
-      auth_header:   config.auth_header
+      auth_header:   config.auth_header,
+      storage:       config.token_store
     }
 
     if token.expires_in do

@@ -24,7 +24,7 @@ config = OAuth2Ex.config(
   token_url:     "https://accounts.google.com/o/oauth2/token",
   scope:         "https://www.googleapis.com/auth/bigquery",
   callback_url:  "urn:ietf:wg:oauth:2.0:oob",
-  token_store:   System.user_home <> "/oauth2ex.google.token"
+  token_store:   %OAuth2Ex.FileStorage{file_name: System.user_home <> "/oauth2ex.google.token"}
 )
 # -> %OAuth2Ex.Config{authorize_url: "https://accounts.google.com/o/oauth2/auth"...
 
@@ -46,11 +46,11 @@ response = OAuth2Ex.HTTP.get(token, "https://www.googleapis.com/bigquery/v2/proj
 # -> %HTTPoison.Response{body: "{\n \"kind\": \"bigquery#projectList...
 
 # Save token to a file for later use.
-token = OAuth2Ex.Token.storage(token, %OAuth2Ex.FileStorage{file_name: "test.token"})
 OAuth2Ex.Token.save(token)
 
 # Load previously saved token from the file.
-token = OAuth2Ex.Token.load(%OAuth2Ex.FileStorage{file_name: "test.token"})
+token = OAuth2Ex.Token.load(
+          %OAuth2Ex.FileStorage{file_name: System.user_home <> "/oauth2ex.google.token"})
 
 # Refresh access_token from refresh_token.
 token = OAuth2Ex.refresh_token(config, token)
