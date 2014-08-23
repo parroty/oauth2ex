@@ -1,4 +1,8 @@
-defmodule OAuth2Ex.Token.Receiver do
+defmodule OAuth2Ex.Token.Listener do
+  @moduledoc """
+  A plug server to receive callback from OAuth 2.0 server.
+  """
+
   import Plug.Conn
 
   def init(options) do

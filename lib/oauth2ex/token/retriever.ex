@@ -1,4 +1,4 @@
-defmodule OAuth2Ex.Token.Requester do
+defmodule OAuth2Ex.Token.Retriever do
   @moduledoc """
   Token receiver to listen callback from OAuth 2.0 server.
   """
@@ -6,14 +6,14 @@ defmodule OAuth2Ex.Token.Requester do
   @doc """
   Start the listen server with specified port. When message is received, navigate user to authenticate using browser.
   """
-  def run(adapter, options) do
+  def run(config, options) do
     port = options[:receiver_port] || 4000
-    timeout = options[:timoeut] || 60_000
+    timeout = options[:timoeut] || 30_000
 
-    Plug.Adapters.Cowboy.http(OAuth2Ex.Token.Receiver,
-      [adapter: adapter, caller: self], port: port)
+    Plug.Adapters.Cowboy.http(OAuth2Ex.Token.Listener,
+      [caller: self], port: port)
 
-    authorize_url = OAuth2Ex.get_authorize_url(adapter.config)
+    authorize_url = OAuth2Ex.get_authorize_url(config)
     case open_by_browser(authorize_url) do
       :ok ->
         IO.puts ""
@@ -24,8 +24,8 @@ defmodule OAuth2Ex.Token.Requester do
 
     receive do
       {:ok, code} ->
-        get_token(code, adapter)
-        {:ok, "Successfully authorized and token is stored in the file."}
+        token = get_token(code, config)
+        {:ok, token}
     after
       timeout ->
         {:error, "Authorization timed out, please retry the process."}
@@ -35,11 +35,11 @@ defmodule OAuth2Ex.Token.Requester do
   @doc """
   Get token from the server and store it into the file.
   """
-  def get_token(code, adapter) do
-    config = adapter.config
+  def get_token(code, config) do
     token = OAuth2Ex.get_token(config, code)
     OAuth2Ex.Token.save(token)
-    Plug.Adapters.Cowboy.shutdown(OAuth2Ex.Token.Receiver.HTTP)
+    Plug.Adapters.Cowboy.shutdown(OAuth2Ex.Token.Listener.HTTP)
+    token
   end
 
   defp open_by_browser(url) do
