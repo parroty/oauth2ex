@@ -36,7 +36,14 @@ defmodule OAuth2Ex.Client do
       Initiate OAuth 2.0 token retrieval processing.
       """
       def retrieve_token(options \\ []) do
-        OAuth2Ex.Token.Requester.run(__MODULE__, options)
+        OAuth2Ex.Token.browse_and_retrieve(config, options)
+      end
+
+      @doc """
+      Initiate OAuth 2.0 token retrieval processing.
+      """
+      def retrieve_token!(options \\ []) do
+        OAuth2Ex.Token.browse_and_retrieve!(config, options)
       end
     end
   end

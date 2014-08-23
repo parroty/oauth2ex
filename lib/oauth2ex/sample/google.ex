@@ -28,11 +28,10 @@ defmodule OAuth2Ex.Sample.Google do
 
   @doc """
   Retrieve the OAuth token from the server, and store to the file
-  in the specified token_store path.
+  in the specified token_store, and then return the token.
   """
   def retrieve_token do
-    {:ok, message} = Client.retrieve_token(receiver_port: 4000)
-    IO.puts message
+    Client.retrieve_token!(receiver_port: 4000)
   end
 
   @doc """

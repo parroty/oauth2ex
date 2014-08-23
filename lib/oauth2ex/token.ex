@@ -44,6 +44,25 @@ defmodule OAuth2Ex.Token do
     storage.module.load(storage)
   end
 
+  @doc """
+  Initiate OAuth 2.0 token retrieval processing.
+  """
+  def browse_and_retrieve(config, options \\ []) do
+    OAuth2Ex.Token.Retriever.run(config, options)
+  end
+
+  @doc """
+  Initiate OAuth 2.0 token retrieval processing.
+  """
+  def browse_and_retrieve!(config, options \\ []) do
+    case browse_and_retrieve(config, options) do
+      {:error, message} ->
+        raise %OAuth2Ex.Error{message: message}
+      {:ok, token} ->
+        token
+    end
+  end
+
   def merge_into_struct(json, struct) do
     keys = Map.keys(struct)
     Enum.reduce(keys, struct, fn(key, acc) ->

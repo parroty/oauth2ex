@@ -57,7 +57,33 @@ token = OAuth2Ex.refresh_token(config, token)
 ```
 
 #### Automatic token retrieval using local callback server.
-An example to uses local server to automates the token retrieval.
+An example to uses local server for automating the token retrieval using OAuth2Ex.Client module.
+
+```Elixir
+# Setup config parameters (retrive required parameters from OAuth 2.0 providers).
+config = OAuth2Ex.config(
+  id:            System.get_env("GOOGLE_API_CLIENT_ID"),
+  secret:        System.get_env("GOOGLE_API_CLIENT_SECRET"),
+  authorize_url: "https://accounts.google.com/o/oauth2/auth",
+  token_url:     "https://accounts.google.com/o/oauth2/token",
+  scope:         "https://www.googleapis.com/auth/bigquery",
+  callback_url:  "http://localhost:4000",
+  token_store:   %OAuth2Ex.FileStorage{file_name: System.user_home <> "/oauth2ex.google.token"}
+)
+# -> %OAuth2Ex.Config{authorize_url: "https://accounts.google.com/o/oauth2/auth"...
+
+# Retrieve token from server. It opens authorize_url using browser,
+# and then waits for the callback on the local server on port 4000.
+token = OAuth2Ex.Token.browse_and_retrieve!(config, receiver_port: 4000)
+# -> %OAuth2Ex.Token{access_token: "..."
+
+# Access API server using token.
+response = OAuth2Ex.HTTP.get(token, "https://www.googleapis.com/bigquery/v2/projects")
+# -> %HTTPoison.Response{body: "{\n \"kind\": \"bigquery#projectList...
+```
+
+#### Helper functions
+`OAuthEx.Client` module provides some helper functions for token retrieval and http accessing.
 - The `retrieve_token` method retrieves the OAuth token and store it locally.
     - This method-call starts up local web server with specified `:receiver_port` to listen callback from OAuth 2.0 server.
 - The `project` method calls Google's BigQuery API using the pre-acquired OAuth token.
@@ -86,7 +112,8 @@ defmodule OAuth2Ex.Sample.Google do
         token_url:     "https://accounts.google.com/o/oauth2/token",
         scope:         "https://www.googleapis.com/auth/bigquery",
         callback_url:  "http://localhost:4000",
-        token_store:   %OAuth2Ex.FileStorage{file_name: System.user_home <> "/oauth2ex.google.token"}
+        token_store:   %OAuth2Ex.FileStorage{
+                         file_name: System.user_home <> "/oauth2ex.google.token"}
       )
     end
   end
@@ -105,7 +132,8 @@ defmodule OAuth2Ex.Sample.Google do
   API: https://developers.google.com/bigquery/docs/reference/v2/#Projects
   """
   def projects do
-    response = OAuth2Ex.HTTP.get(Client.token, "https://www.googleapis.com/bigquery/v2/projects")
+    response = OAuth2Ex.HTTP.get(
+                 Client.token, "https://www.googleapis.com/bigquery/v2/projects")
     response.body |> JSEX.decode!
   end
 end
@@ -122,7 +150,7 @@ authorize_url(*) | Authorization url to retrieve a code to start authentication.
 token_url(*)     | Token url to retrieve token.
 scope            | Scope to identify the allowed scope within the provider's API. Some providers does not have one.
 callback_url     | Callback url for receiving code, which is redirected from authorize_url.
-token_store      | File path to store retrieved token.
+token_store      | Specify a module to handle saving and loading.
 auth_header      | HTTP Access header for specifying OAuth token. It defaults to "Bearer", which sends `Authorization: Bearer xxxx` header.
 response_type    | Response type when accessing authorization url. It defaults to "code".
 (*) indicates mandatory parameter.
