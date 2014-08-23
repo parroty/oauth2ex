@@ -9,6 +9,29 @@ An OAuth 2.0 client library for elixir. It provides the following functionalitie
 It's pretty much work in progress yet, and APIs will likely to be change.
 The `OAuth2Ex.Sample` modules contains example for several API servers, like Google, GitHub and Dropbox.
 
+### Setup
+Specify dependency in the mix.exs.
+
+```Elixir
+defp deps do
+  [
+    {:oauth2ex, github: "parroty/oauth2ex"}
+  ]
+end
+```
+
+`:cowboy` and `:plug` are also required when using `OAuth2Ex.Token.browse_and_retrieve` method.
+
+```Elixir
+defp deps do
+  [
+    {:oauth2ex, github: "parroty/oauth2ex"},
+    {:cowboy, "~> 1.0.0"},
+    {:plug, "~> 0.5.3"}
+  ]
+end
+```
+
 ### Usage
 The following is an example to call Google's BigQuery API.
 

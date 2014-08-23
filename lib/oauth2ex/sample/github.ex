@@ -32,8 +32,7 @@ defmodule OAuth2Ex.Sample.GitHub do
   in the specified token_store path.
   """
   def retrieve_token do
-    {:ok, message} = Client.retrieve_token(receiver_port: 4000)
-    IO.puts message
+    Client.retrieve_token!(receiver_port: 4000)
   end
 
   @doc """
