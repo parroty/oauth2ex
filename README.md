@@ -20,18 +20,6 @@ defp deps do
 end
 ```
 
-`:cowboy` and `:plug` are also required when using `OAuth2Ex.Token.browse_and_retrieve` method.
-
-```Elixir
-defp deps do
-  [
-    {:oauth2ex, github: "parroty/oauth2ex"},
-    {:cowboy, "~> 1.0.0"},
-    {:plug, "~> 0.5.3"}
-  ]
-end
-```
-
 ### Usage
 The following is an example to call Google's BigQuery API.
 

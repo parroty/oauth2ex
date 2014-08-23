@@ -31,8 +31,10 @@ defmodule OAuth2Ex.Mixfile do
     [
       {:httpoison, github: "edgurgel/httpoison"},
       {:jsex, "~> 2.0"},
-      {:cowboy, "~> 1.0.0", optional: true},
-      {:plug, "~> 0.5.3", optional: true},
+      {:cowboy, "~> 1.0.0"},
+      {:plug, "~> 0.6.0"},
+      # {:cowboy, "~> 1.0.0", optional: true},
+      # {:plug, "~> 0.6.0", optional: true},
       {:timex, "~> 0.12"},
       {:excoveralls, "~> 0.3", only: :dev}
     ]
