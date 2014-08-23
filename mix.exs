@@ -5,6 +5,8 @@ defmodule OAuth2Ex.Mixfile do
     [app: :oauth2ex,
      version: "0.0.1",
      elixir: "~> 0.15.0",
+     description: description,
+     package: package,
      test_coverage: [tool: ExCoveralls],
      deps: deps]
   end
@@ -34,5 +36,17 @@ defmodule OAuth2Ex.Mixfile do
       {:timex, "~> 0.12"},
       {:excoveralls, "~> 0.3", only: :dev}
     ]
+  end
+
+  defp description do
+    """
+    An OAuth 2.0 client library for elixir.
+    """
+  end
+
+  defp package do
+    [ contributors: ["parroty"],
+      licenses: ["MIT"],
+      links: [ { "GitHub", "https://github.com/parroty/oauth2ex" } ] ]
   end
 end
