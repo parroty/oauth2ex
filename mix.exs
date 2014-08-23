@@ -49,6 +49,6 @@ defmodule OAuth2Ex.Mixfile do
   defp package do
     [ contributors: ["parroty"],
       licenses: ["MIT"],
-      links: [ { "GitHub", "https://github.com/parroty/oauth2ex" } ] ]
+      links: %{"GitHub" => "https://github.com/parroty/oauth2ex"} ]
   end
 end
