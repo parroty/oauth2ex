@@ -45,7 +45,8 @@ defmodule OAuth2Ex.Sample.Google do
   API: https://developers.google.com/bigquery/docs/reference/v2/#Projects
   """
   def projects do
-    response = Client.get("https://www.googleapis.com/bigquery/v2/projects")
+    response = OAuth2Ex.HTTP.get(
+                 Client.token, "https://www.googleapis.com/bigquery/v2/projects")
     response.body |> JSEX.decode!
   end
 end

@@ -10,9 +10,13 @@ It's pretty much work in progress yet, and APIs will likely to be change.
 The `OAuth2Ex.Sample` modules contains example for several API servers, like Google, GitHub and Dropbox.
 
 ### Setup
-Specify dependency in the mix.exs.
+Specify :oauth2ex in the `appliations` and `deps" section in the mix.exs.
 
 ```Elixir
+def application do
+  [ applications: [:logger, :oauth2ex] ]
+end
+
 defp deps do
   [
     {:oauth2ex, github: "parroty/oauth2ex"}
