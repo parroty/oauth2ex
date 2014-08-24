@@ -138,9 +138,14 @@ defmodule OAuth2Ex.Sample.Google do
   in the specified token_store path.
   """
   def retrieve_token do
-    {:ok, message} = Client.retrieve_token(receiver_port: 4000)
-    IO.puts message
+    Client.retrieve_token!(receiver_port: 4000)
   end
+
+  @doc """
+  Refresh the OAuth access_token from the refresh_token, as
+  Google's access token has expiration time.
+  """
+  def refresh_token, do: Client.refresh_token
 
   @doc """
   List the projects by calling Google BigQuery API - project list.
