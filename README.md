@@ -39,7 +39,7 @@ config = OAuth2Ex.config(
   token_url:     "https://accounts.google.com/o/oauth2/token",
   scope:         "https://www.googleapis.com/auth/bigquery",
   callback_url:  "urn:ietf:wg:oauth:2.0:oob",
-  token_store:   %OAuth2Ex.FileStorage{file_name: System.user_home <> "/oauth2ex.google.token"}
+  token_store:   %OAuth2Ex.FileStorage{file_path: System.user_home <> "/oauth2ex.google.token"}
 )
 # -> %OAuth2Ex.Config{authorize_url: "https://accounts.google.com/o/oauth2/auth"...
 
@@ -65,7 +65,7 @@ OAuth2Ex.Token.save(token)
 
 # Load previously saved token from the file.
 token = OAuth2Ex.Token.load(
-          %OAuth2Ex.FileStorage{file_name: System.user_home <> "/oauth2ex.google.token"})
+          %OAuth2Ex.FileStorage{file_path: System.user_home <> "/oauth2ex.google.token"})
 
 # Refresh access_token from refresh_token.
 token = OAuth2Ex.refresh_token(config, token)
@@ -83,7 +83,7 @@ config = OAuth2Ex.config(
   token_url:     "https://accounts.google.com/o/oauth2/token",
   scope:         "https://www.googleapis.com/auth/bigquery",
   callback_url:  "http://localhost:4000",
-  token_store:   %OAuth2Ex.FileStorage{file_name: System.user_home <> "/oauth2ex.google.token"}
+  token_store:   %OAuth2Ex.FileStorage{file_path: System.user_home <> "/oauth2ex.google.token"}
 )
 # -> %OAuth2Ex.Config{authorize_url: "https://accounts.google.com/o/oauth2/auth"...
 
@@ -128,7 +128,7 @@ defmodule OAuth2Ex.Sample.Google do
         scope:         "https://www.googleapis.com/auth/bigquery",
         callback_url:  "http://localhost:4000",
         token_store:   %OAuth2Ex.FileStorage{
-                         file_name: System.user_home <> "/oauth2ex.google.token"}
+                         file_path: System.user_home <> "/oauth2ex.google.token"}
       )
     end
   end
