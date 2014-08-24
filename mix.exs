@@ -29,14 +29,15 @@ defmodule OAuth2Ex.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-      {:httpoison, github: "edgurgel/httpoison"},
+      {:httpoison, "~> 0.4"},
       {:jsex, "~> 2.0"},
       {:cowboy, "~> 1.0.0"},
-      {:plug, "~> 0.6.0"},
       # {:cowboy, "~> 1.0.0", optional: true},
+      {:plug, "~> 0.6.0"},
       # {:plug, "~> 0.6.0", optional: true},
       {:timex, "~> 0.12"},
-      {:excoveralls, "~> 0.3", only: :dev}
+      {:excoveralls, "~> 0.3", only: [:dev, :test]},
+      {:exvcr, "~> 0.3", only: [:dev, :test]}
     ]
   end
 
