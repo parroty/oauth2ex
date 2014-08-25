@@ -28,14 +28,14 @@ defmodule OAuth2ExClientTest do
   test "using empty client throws error" do
     message = "config/0 is not implemented for the OAuth2ExClientTest.EmptyClient."
     assert_raise OAuth2Ex.Error, message, fn ->
-      EmptyClient.retrieve_token
+      EmptyClient.browse_and_retrieve
     end
   end
 
   test "using nil parameter client throws missing param error" do
     message = ~r/:id parameter is missing/
     assert_raise OAuth2Ex.Error, message, fn ->
-      NilParameterClient.retrieve_token
+      NilParameterClient.browse_and_retrieve
     end
   end
 
