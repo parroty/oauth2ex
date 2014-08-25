@@ -6,8 +6,9 @@ An OAuth 2.0 client library for elixir. It provides the following functionalitie
 - Caching the acquired token locally, and refreshing the token when the it's expired.
 - HTTP client access by specifying OAuth2 access token. It uses httpoison (https://github.com/edgurgel/httpoison) as http client library.
 
-It's pretty much work in progress yet, and APIs will likely to be change.
 The `OAuth2Ex.Sample` modules contains example for several API servers, like Google, GitHub and Dropbox.
+
+__It's pretty much work in progress yet, and APIs will likely to be change.__
 
 ### Setup
 Specify :oauth2ex in the `appliations` and `deps" section in the mix.exs.
