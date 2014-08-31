@@ -4,7 +4,7 @@ defmodule OAuth2Ex.Mixfile do
   def project do
     [app: :oauth2ex,
      version: "0.0.3",
-     elixir: "~> 0.15.0",
+     elixir: "~> 0.15.0 or ~> 1.0.0-rc1",
      description: description,
      package: package,
      test_coverage: [tool: ExCoveralls],
