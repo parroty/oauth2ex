@@ -6,7 +6,7 @@ defmodule OAuth2Ex.FileStorage do
   defstruct module: __MODULE__, file_path: nil
 
   @doc """
-  Load token from the specified file.
+  Save token into the specified file.
   """
   def save(token, storage) do
     map = Map.from_struct(token) |> Map.delete(:storage)
@@ -16,7 +16,7 @@ defmodule OAuth2Ex.FileStorage do
   end
 
   @doc """
-  Save token into the specified file.
+  Load token from the specified file.
   """
   def load(storage) do
     File.read!(storage.file_path)

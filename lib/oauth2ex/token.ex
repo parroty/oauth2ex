@@ -33,7 +33,7 @@ defmodule OAuth2Ex.Token do
       {:ok, token} ->
         token
       {:error, token} ->
-        raise %OAuth2Ex.Error{message: "Failed to save token. Toekn.storage = #{inspect token.stoage}"}
+        raise %OAuth2Ex.Error{message: "Failed to save token. Token.storage = #{inspect token.stoage}"}
     end
   end
 
