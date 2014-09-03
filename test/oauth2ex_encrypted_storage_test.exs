@@ -1,6 +1,10 @@
 defmodule OAuth2ExEncryptedStorageTest do
   use ExUnit.Case
 
+  setup_all do
+    File.mkdir_p!("test/tmp")
+  end
+
   test "encrypt and decrypt should return original token" do
     original_token = "token"
     storage = %OAuth2Ex.EncryptedStorage{encryption_key: "encryption_key"}
