@@ -63,6 +63,9 @@ defmodule OAuth2Ex.Token do
     end
   end
 
+  @doc """
+  Merge json objects into struct.
+  """
   def merge_into_struct(json, struct) do
     keys = Map.keys(struct)
     Enum.reduce(keys, struct, fn(key, acc) ->

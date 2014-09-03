@@ -40,7 +40,8 @@ config = OAuth2Ex.config(
   token_url:     "https://accounts.google.com/o/oauth2/token",
   scope:         "https://www.googleapis.com/auth/bigquery",
   callback_url:  "urn:ietf:wg:oauth:2.0:oob",
-  token_store:   %OAuth2Ex.FileStorage{file_path: System.user_home <> "/oauth2ex.google.token"}
+  token_store:   %OAuth2Ex.FileStorage{
+                   file_path: System.user_home <> "/oauth2ex.google.token"}
 )
 # -> %OAuth2Ex.Config{authorize_url: "https://accounts.google.com/o/oauth2/auth"...
 
@@ -84,7 +85,8 @@ config = OAuth2Ex.config(
   token_url:     "https://accounts.google.com/o/oauth2/token",
   scope:         "https://www.googleapis.com/auth/bigquery",
   callback_url:  "http://localhost:4000",
-  token_store:   %OAuth2Ex.FileStorage{file_path: System.user_home <> "/oauth2ex.google.token"}
+  token_store:   %OAuth2Ex.FileStorage{
+                   file_path: System.user_home <> "/oauth2ex.google.token"}
 )
 # -> %OAuth2Ex.Config{authorize_url: "https://accounts.google.com/o/oauth2/auth"...
 
@@ -96,6 +98,42 @@ token = OAuth2Ex.Token.browse_and_retrieve!(config, receiver_port: 4000)
 # Access API server using token.
 response = OAuth2Ex.HTTP.get(token, "https://www.googleapis.com/bigquery/v2/projects")
 # -> %HTTPoison.Response{body: "{\n \"kind\": \"bigquery#projectList...
+```
+
+#### Encrypted token storage
+`OAuth2Ex.EncryptedStorage` module can be used as `:token_store` to save `access_token` and `refresh_token` in encrypted format.
+
+```Elixir
+token = %OAuth2Ex.Token{access_token: "aaa", refresh_token: "bbb"}
+storage = %OAuth2Ex.EncryptedStorage{encryption_key: "encryption_key", file_path: "test/tmp/token_file"}
+OAuth2Ex.EncryptedStorage.save(original_token, storage)
+```
+
+The token is saved to the file specified by the `:file_path` using the `encryption_key`, as the following.
+
+```javascript
+{
+  "access_token": [
+    "iN/U",
+    "nb1HhOXWlPusXj1yRRgF3g=="
+  ],
+  "auth_header": "Bearer",
+  "config": null,
+  "expires_at": null,
+  "expires_in": null,
+  "refresh_token": [
+    "07OM",
+    "Ykh2a9vE38XY7yQTwyXQ1g=="
+  ],
+  "token_type": null
+}
+```
+
+The token file can be loaded as follows.
+
+```Elixir
+storage = %OAuth2Ex.EncryptedStorage{encryption_key: "encryption_key", file_path: "test/tmp/token_file"}
+token = OAuth2Ex.EncryptedStorage.load(storage)
 ```
 
 #### Helper functions
