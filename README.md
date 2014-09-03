@@ -105,7 +105,8 @@ response = OAuth2Ex.HTTP.get(token, "https://www.googleapis.com/bigquery/v2/proj
 
 ```Elixir
 token = %OAuth2Ex.Token{access_token: "aaa", refresh_token: "bbb"}
-storage = %OAuth2Ex.EncryptedStorage{encryption_key: "encryption_key", file_path: "test/tmp/token_file"}
+storage = %OAuth2Ex.EncryptedStorage{
+            encryption_key: "encryption_key", file_path: "test/tmp/token_file"}
 OAuth2Ex.EncryptedStorage.save(original_token, storage)
 ```
 
@@ -132,7 +133,8 @@ The token is saved to the file specified by the `:file_path` using the `encrypti
 The token file can be loaded as follows.
 
 ```Elixir
-storage = %OAuth2Ex.EncryptedStorage{encryption_key: "encryption_key", file_path: "test/tmp/token_file"}
+storage = %OAuth2Ex.EncryptedStorage{
+            encryption_key: "encryption_key", file_path: "test/tmp/token_file"}
 token = OAuth2Ex.EncryptedStorage.load(storage)
 ```
 
