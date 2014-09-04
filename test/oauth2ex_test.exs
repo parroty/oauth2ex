@@ -20,6 +20,12 @@ defmodule OAuth2ExTest do
     assert !String.contains?(url, "client_secret=sample_secret")
   end
 
+  test "missing param in the config throws error" do
+    assert_raise OAuth2Ex.Error, fn ->
+      OAuth2Ex.config([])
+    end
+  end
+
   # TODO: apply http_server
   # test "authentication with code" do
   #   token = OAuth2Ex.get_token(config, "sample_code")
