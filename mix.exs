@@ -33,8 +33,8 @@ defmodule OAuth2Ex.Mixfile do
       {:jsex, "~> 2.0"},
       {:cowboy, "~> 1.0.0"},
       # {:cowboy, "~> 1.0.0", optional: true},
-      {:plug, "~> 0.6.0"},
-      # {:plug, "~> 0.6.0", optional: true},
+      {:plug, "~> 0.7.0"},
+      # {:plug, "~> 0.7.0", optional: true},
       {:timex, "~> 0.12"},
       {:excoveralls, "~> 0.3", only: [:dev, :test]},
       {:exvcr, "~> 0.3", only: [:dev, :test]}
