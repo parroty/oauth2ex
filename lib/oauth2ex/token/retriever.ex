@@ -8,7 +8,7 @@ defmodule OAuth2Ex.Token.Retriever do
   """
   def run(config, options) do
     port = options[:receiver_port] || 4000
-    timeout = options[:timoeut] || 30_000
+    timeout = options[:timeout] || 30_000
 
     Plug.Adapters.Cowboy.http(OAuth2Ex.Token.Listener,
       [caller: self], port: port)
