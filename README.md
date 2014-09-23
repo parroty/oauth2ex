@@ -73,7 +73,7 @@ token = OAuth2Ex.Token.load(
 token = OAuth2Ex.refresh_token(config, token)
 ```
 
-#### Automatic token retrieval using local callback server.
+#### Automatic token retrieval using local callback server
 An example to uses local server for automating the token retrieval using OAuth2Ex.Client module.
 
 ```Elixir
