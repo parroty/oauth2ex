@@ -14,5 +14,5 @@ defmodule OAuth2Ex.Config do
             auth_header: nil,      # HTTP Access header for specifying OAuth token.
                                    #   It defaults to "Bearer", which sends `Authorization: Bearer xxxx`
             response_type: nil,    # Response type when accessing authorization url. It defaults to "code".
-            client_options: nil    # Additional options for clients
+            client_options: nil    # Additional options for clients.
 end

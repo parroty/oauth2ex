@@ -161,49 +161,32 @@ defmodule OAuth2Ex.Sample.Google do
   API: https://developers.google.com/accounts/docs/OAuth2
   """
 
-  defmodule Client do
-    @moduledoc """
-    Client configuration for specifying required parameters
-    for accessing OAuth 2.0 server.
-    """
+  use OAuth2Ex.Client
 
-    use OAuth2Ex.Client
-
-    def config do
-      OAuth2Ex.config(
-        id:            System.get_env("GOOGLE_API_CLIENT_ID"),
-        secret:        System.get_env("GOOGLE_API_CLIENT_SECRET"),
-        authorize_url: "https://accounts.google.com/o/oauth2/auth",
-        token_url:     "https://accounts.google.com/o/oauth2/token",
-        scope:         "https://www.googleapis.com/auth/bigquery",
-        callback_url:  "http://localhost:4000",
-        token_store:   %OAuth2Ex.FileStorage{
-                         file_path: System.user_home <> "/oauth2ex.google.token"}
-      )
-    end
+  @doc """
+  Client configuration for specifying required parameters
+  for accessing OAuth 2.0 server.
+  """
+  def config do
+    OAuth2Ex.config(
+      id:            System.get_env("GOOGLE_API_CLIENT_ID"),
+      secret:        System.get_env("GOOGLE_API_CLIENT_SECRET"),
+      authorize_url: "https://accounts.google.com/o/oauth2/auth",
+      token_url:     "https://accounts.google.com/o/oauth2/token",
+      scope:         "https://www.googleapis.com/auth/bigquery",
+      callback_url:  "http://localhost:3000",
+      token_store:   %OAuth2Ex.FileStorage{
+                       file_path: System.user_home <> "/oauth2ex.google.token"},
+      client_options: [receiver_port: 3000, timeout: 60_000]
+    )
   end
 
   @doc """
-  Retrieve the OAuth token from the server, and store to the file
-  in the specified token_store path.
-  """
-  def browse_and_retrieve do
-    Client.browse_and_retrieve!(receiver_port: 4000)
-  end
-
-  @doc """
-  Refresh the OAuth access_token from the refresh_token, as
-  Google's access token has expiration time.
-  """
-  def refresh_token, do: Client.refresh_token
-
-  @doc """
-  List the projects by calling Google BigQuery API - project list.
+  List the projects by calling Google BigQuery API.
   API: https://developers.google.com/bigquery/docs/reference/v2/#Projects
   """
   def projects do
-    response = OAuth2Ex.HTTP.get(
-                 Client.token, "https://www.googleapis.com/bigquery/v2/projects")
+    response = OAuth2Ex.HTTP.get(token, "https://www.googleapis.com/bigquery/v2/projects")
     response.body |> JSEX.decode!
   end
 end
@@ -223,4 +206,6 @@ callback_url     | Callback url for receiving code, which is redirected from aut
 token_store      | Specify a module to handle saving and loading.
 auth_header      | HTTP Access header for specifying OAuth token. It defaults to "Bearer", which sends `Authorization: Bearer xxxx` header.
 response_type    | Response type when accessing authorization url. It defaults to "code".
+client_options   | Additional options for clients.
+
 (*) indicates mandatory parameter.
