@@ -138,6 +138,15 @@ storage = %OAuth2Ex.EncryptedStorage{
 token = OAuth2Ex.EncryptedStorage.load(storage)
 ```
 
+#### Ensure to refresh token
+Some providers sets expiration date for the access token (ex. Google has 1 hour expiration). For this kind of providers, `OAuth2Ex.ensure_token` can be used. This method checks the expiration date and refresh the token if it's expired, and does nothing if it's not expired.
+
+```Elixir
+
+token = OAuth2Ex.ensure_token(config, token)
+response = OAuth2Ex.HTTP.get(token, "https://www.googleapis.com/bigquery/v2/projects")
+```
+
 #### Helper functions
 `OAuthEx.Client` module provides some helper functions for token retrieval and http accessing.
 - The `retrieve_token` method retrieves the OAuth token and store it locally.

@@ -55,25 +55,37 @@ defmodule OAuth2Ex do
   end
 
   @doc """
-  Refresh access token using refresh token for when access token is expired.
+  It checks the expiration date of the token at first, and then refresh the token if it's expired.
+  If token is not expired, it just returns the current token without accessing server.
   """
-  def refresh_token(config, token, options \\ [force: false]) do
-    if expired?(token) or options[:force] do
-      query_params = [
-        refresh_token: token.refresh_token,
-        client_id:     config.id,
-        client_secret: config.secret,
-        grant_type:    "refresh_token"
-      ] |> join
-
-      new_token = %{do_get_token(config, query_params) | refresh_token: token.refresh_token, storage: token.storage}
-      OAuth2Ex.Token.save!(new_token)
+  def ensure_token(config, token) do
+    if token_expired?(token) do
+      refresh_token(config, token)
     else
       token
     end
   end
 
-  defp expired?(token) do
+  @doc """
+  Refresh access token using refresh token for when access token is expired.
+  """
+  def refresh_token(config, token) do
+    query_params = [
+      refresh_token: token.refresh_token,
+      client_id:     config.id,
+      client_secret: config.secret,
+      grant_type:    "refresh_token"
+    ] |> join
+
+    new_token = %{do_get_token(config, query_params) | refresh_token: token.refresh_token, storage: token.storage}
+    OAuth2Ex.Token.save!(new_token)
+  end
+
+  @doc """
+  Returns true if the token has refresh expiration date and expired.
+  If the expiration date is not available (null), it returns false.
+  """
+  def token_expired?(token) do
     if token.expires_at do
       expires_at = Timex.Date.from(token.expires_at, :secs)
       if Timex.Date.diff(Timex.Date.now, expires_at, :secs) <= 0 do
