@@ -25,6 +25,7 @@ defmodule OAuth2Ex.Client do
               message: "token_store parameter is missing or invalid for the specified OAuth2Ex.Config struct: #{inspect config}."}
         end
       end
+      defoverridable token: 0
 
       @doc """
       A method to refresh token.
@@ -32,6 +33,7 @@ defmodule OAuth2Ex.Client do
       def refresh_token do
         OAuth2Ex.refresh_token(config, token)
       end
+      defoverridable refresh_token: 0
 
       @doc """
       Initiate OAuth 2.0 token retrieval processing.
@@ -39,6 +41,7 @@ defmodule OAuth2Ex.Client do
       def browse_and_retrieve(options \\ []) do
         OAuth2Ex.Token.browse_and_retrieve(config, options)
       end
+      defoverridable [browse_and_retrieve: 0, browse_and_retrieve: 1]
 
       @doc """
       Initiate OAuth 2.0 token retrieval processing.
@@ -46,6 +49,7 @@ defmodule OAuth2Ex.Client do
       def browse_and_retrieve!(options \\ []) do
         OAuth2Ex.Token.browse_and_retrieve!(config, options)
       end
+      defoverridable [browse_and_retrieve!: 0, browse_and_retrieve!: 1]
     end
   end
 end
