@@ -4,6 +4,14 @@ defmodule OAuth2Ex do
   """
 
   @doc """
+  Initialize module.
+  """
+  def start do
+    OAuth2Ex.Token.Cache.start
+    :ok
+  end
+
+  @doc """
   Create and return OAuth2Ex.Config struct based on specified parameters.
   For the details of each parameter, refer to the definition of OAuth2Ex.Config struct.
   """

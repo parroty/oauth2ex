@@ -19,6 +19,7 @@ defmodule OAuth2Ex.Token do
   def save(token) do
     if storage = token.storage do
       token = storage.module.save(token, storage)
+      OAuth2Ex.Token.Cache.set(token)
       {:ok, token}
     else
       {:error, token}
@@ -41,7 +42,13 @@ defmodule OAuth2Ex.Token do
   Load token from the location specified by the module defined as :storage key.
   """
   def load(storage) do
-    storage.module.load(storage)
+    if token = OAuth2Ex.Token.Cache.get do
+      token
+    else
+      token = storage.module.load(storage)
+      OAuth2Ex.Token.Cache.set(token)
+      token
+    end
   end
 
   @doc """

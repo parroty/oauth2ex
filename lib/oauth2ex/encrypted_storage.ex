@@ -1,6 +1,6 @@
 defmodule OAuth2Ex.EncryptedStorage do
   @moduledoc """
-  Provides local token file store.
+  Provides local token file store with encryption.
   """
 
   defstruct module: __MODULE__, file_path: nil, encryption_key: nil, algorithm: :aes_cfb128, hash_function: :md5, iv_bytes: 16
