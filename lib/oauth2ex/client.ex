@@ -18,7 +18,8 @@ defmodule OAuth2Ex.Client do
       def token do
         case config.token_store do
           storage when is_map(storage) ->
-            OAuth2Ex.Token.load(storage)
+            token = OAuth2Ex.Token.load(storage)
+            OAuth2Ex.ensure_token(config, token)
           _ ->
             raise %OAuth2Ex.Error{
               message: "token_store parameter is missing or invalid for the specified OAuth2Ex.Config struct: #{inspect config}."}
