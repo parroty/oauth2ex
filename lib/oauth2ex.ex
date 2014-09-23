@@ -9,15 +9,16 @@ defmodule OAuth2Ex do
   """
   def config(params) do
     %OAuth2Ex.Config{
-      id:            params[:id] || raise_param_error(:id),
-      secret:        params[:secret] || raise_param_error(:secret),
-      authorize_url: params[:authorize_url] || raise_param_error(:authorize_url),
-      token_url:     params[:token_url] || raise_param_error(:token_url),
-      scope:         params[:scope],
-      callback_url:  params[:callback_url],
-      token_store:   params[:token_store],
-      auth_header:   params[:auth_header] || "Bearer",
-      response_type: params[:response_type] || "code"
+      id:             params[:id] || raise_param_error(:id),
+      secret:         params[:secret] || raise_param_error(:secret),
+      authorize_url:  params[:authorize_url] || raise_param_error(:authorize_url),
+      token_url:      params[:token_url] || raise_param_error(:token_url),
+      scope:          params[:scope],
+      callback_url:   params[:callback_url],
+      token_store:    params[:token_store],
+      auth_header:    params[:auth_header] || "Bearer",
+      response_type:  params[:response_type] || "code",
+      client_options: params[:client_options]
     }
   end
 
