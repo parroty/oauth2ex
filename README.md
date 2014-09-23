@@ -29,7 +29,7 @@ end
 The following is an example to call Google's BigQuery API.
 
 #### Manual token retrieval using browser
-An example to uses OAuth2Ex helper methods to retrieve OAuth token.
+An example to use OAuth2Ex helper methods to retrieve OAuth token.
 
 ```Elixir
 # Setup config parameters (retrive required parameters from OAuth 2.0 providers).
