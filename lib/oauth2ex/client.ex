@@ -50,6 +50,55 @@ defmodule OAuth2Ex.Client do
         OAuth2Ex.Token.browse_and_retrieve!(config, options)
       end
       defoverridable [browse_and_retrieve!: 0, browse_and_retrieve!: 1]
+
+      @doc """
+      Send HTTP GET request with specified parameters and OAuth token.
+      """
+      def get(url, params \\ [], headers \\ [], options \\ []) do
+        OAuth2Ex.HTTP.get(token, url, params, headers, options)
+      end
+
+      @doc """
+      Send HTTP PUT request with specified parameters and OAuth token.
+      """
+      def put(url, params, headers \\ [], options \\ []) do
+        OAuth2Ex.HTTP.put(token, url, params, headers, options)
+      end
+
+      @doc """
+      Send HTTP HEAD request with specified parameters and OAuth token.
+      """
+      def head(url, params \\ [], headers \\ [], options \\ []) do
+        OAuth2Ex.HTTP.head(token, url, params, headers, options)
+      end
+
+      @doc """
+      Send HTTP POST request with specified parameters and OAuth token.
+      """
+      def post(url, params, headers \\ [], options \\ []) do
+        OAuth2Ex.HTTP.post(token, url, params, headers, options)
+      end
+
+      @doc """
+      Send HTTP PATCH request with specified parameters and OAuth token.
+      """
+      def patch(url, params, headers \\ [], options \\ []) do
+        OAuth2Ex.HTTP.patch(token, url, params, headers, options)
+      end
+
+      @doc """
+      Send HTTP DELETE request with specified parameters and OAuth token.
+      """
+      def delete(url, params \\ [], headers \\ [], options \\ []) do
+        OAuth2Ex.HTTP.delete(token, url, params, headers, options)
+      end
+
+      @doc """
+      Send http requests with specified parameters and OAuth token.
+      """
+      def request(method, url, body, headers, options) do
+        OAuth2Ex.HTTP.request(token, method, url, body, headers, options)
+      end
     end
   end
 end
