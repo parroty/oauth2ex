@@ -1,4 +1,10 @@
 defmodule OAuth2Ex.HTTP do
+  @moduledoc """
+  HTTP accessor methods using OAuth2 token.
+  Requests and responses are parsed as json. If raw access is required,
+  apply request/6 method.
+  """
+
   @doc """
   Send HTTP GET request with specified parameters and OAuth token.
   """
@@ -49,7 +55,8 @@ defmodule OAuth2Ex.HTTP do
         {"Authorization", "#{token.auth_header} #{token.access_token}"},
         {"Content-Type", "application/json"}
     ]
-    HTTPoison.request(method, url, body, headers ++ base_header, options)
+    response = HTTPoison.request(method, url, body, headers ++ base_header, options)
+    %{response | body: decode_body(response)}
   end
 
   @doc """
@@ -57,6 +64,16 @@ defmodule OAuth2Ex.HTTP do
   """
   def request(adapter, method, url, body, headers, options) do
     request(adapter.token, method, url, body, headers, options)
+  end
+
+  defp decode_body(response) do
+    cond do
+      response.headers["Content-Type"] =~ ~r/application\/json/i ->
+        response.body |> JSEX.decode!
+
+      true ->
+        response.body
+    end
   end
 
   defp parse_as_query(url, params) do
