@@ -9,6 +9,6 @@
   "jsex": {:package, "2.0.0"},
   "jsx": {:package, "2.1.1"},
   "meck": {:package, "0.8.2"},
-  "plug": {:package, "0.7.0"},
+  "plug": {:package, "0.8.1"},
   "ranch": {:package, "1.0.0"},
   "timex": {:package, "0.12.5"}}
