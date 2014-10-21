@@ -113,7 +113,7 @@ defmodule OAuth2Ex do
       {"Accept", "application/json"}
     ]
 
-    HTTPoison.post(config.token_url, [query_params], headers).body
+    HTTPoison.post!(config.token_url, [query_params], headers).body
       |> JSEX.decode!
       |> parse_token(config)
   end
