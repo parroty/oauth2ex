@@ -29,7 +29,7 @@ defmodule OAuth2Ex.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-      {:httpoison, "~> 0.4"},
+      {:httpoison, "~> 0.5"},
       {:jsex, "~> 2.0"},
       {:cowboy, "~> 1.0.0"},
       {:plug, "~> 0.8.0"},
