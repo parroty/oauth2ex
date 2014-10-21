@@ -55,7 +55,7 @@ defmodule OAuth2Ex.HTTP do
         {"Authorization", "#{token.auth_header} #{token.access_token}"},
         {"Content-Type", "application/json"}
     ]
-    response = HTTPoison.request(method, url, body, headers ++ base_header, options)
+    response = HTTPoison.request!(method, url, body, headers ++ base_header, options)
     %{response | body: decode_body(response)}
   end
 
