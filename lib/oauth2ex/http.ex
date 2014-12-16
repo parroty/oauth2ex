@@ -70,7 +70,7 @@ defmodule OAuth2Ex.HTTP do
     content_type = response.headers["Content-Type"]
     cond do
       content_type != nil and content_type =~ ~r/application\/json/i ->
-        response.body |> JSEX.decode!
+        response.body |> JSX.decode!
 
       true ->
         response.body
@@ -88,6 +88,6 @@ defmodule OAuth2Ex.HTTP do
 
   defp parse_as_json([]), do: ""
   defp parse_as_json(params) do
-    JSEX.encode!(params)
+    JSX.encode!(params)
   end
 end

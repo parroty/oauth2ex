@@ -31,6 +31,6 @@ defmodule OAuth2Ex.Sample.GitHub do
   """
   def get_authorization do
     response = OAuth2Ex.HTTP.get(token, "https://api.github.com/authorizations")
-    response.body |> JSEX.decode!
+    response.body |> JSX.decode!
   end
 end
