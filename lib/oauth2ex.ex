@@ -114,7 +114,7 @@ defmodule OAuth2Ex do
     ]
 
     HTTPoison.post!(config.token_url, [query_params], headers).body
-      |> JSEX.decode!
+      |> JSX.decode!
       |> parse_token(config)
   end
 

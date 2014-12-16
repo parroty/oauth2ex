@@ -30,7 +30,7 @@ defmodule OAuth2Ex.Mixfile do
   defp deps do
     [
       {:httpoison, "~> 0.5"},
-      {:jsex, "~> 2.0"},
+      {:exjsx, "~> 3.1.0"},
       {:cowboy, "~> 1.0.0"},
       {:plug, "~> 0.8.0"},
       {:timex, "~> 0.12"},

@@ -7,7 +7,6 @@
   "hackney": {:hex, :hackney, "0.14.3"},
   "httpoison": {:hex, :httpoison, "0.5.0"},
   "idna": {:hex, :idna, "1.0.1"},
-  "jsex": {:hex, :jsex, "2.0.0"},
   "jsx": {:hex, :jsx, "2.4.0"},
   "meck": {:hex, :meck, "0.8.2"},
   "plug": {:hex, :plug, "0.8.4"},

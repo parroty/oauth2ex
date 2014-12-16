@@ -10,7 +10,7 @@ defmodule OAuth2Ex.FileStorage do
   """
   def save(token, storage) do
     map = Map.from_struct(token) |> Map.delete(:storage)
-    json = JSEX.encode!(map) |> JSEX.prettify!
+    json = JSX.encode!(map) |> JSX.prettify!
     File.write!(storage.file_path, json)
     token
   end
@@ -20,7 +20,7 @@ defmodule OAuth2Ex.FileStorage do
   """
   def load(storage) do
     File.read!(storage.file_path)
-      |> JSEX.decode!
+      |> JSX.decode!
       |> OAuth2Ex.Token.merge_into_struct(%OAuth2Ex.Token{storage: storage})
   end
 end

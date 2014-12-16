@@ -15,7 +15,7 @@ defmodule OAuth2Ex.EncryptedStorage do
 
     map = Map.from_struct(encrypted_token) |> Map.delete(:storage)
 
-    json = JSEX.encode!(map) |> JSEX.prettify!
+    json = JSX.encode!(map) |> JSX.prettify!
     File.write!(storage.file_path, json)
 
     token
@@ -25,7 +25,7 @@ defmodule OAuth2Ex.EncryptedStorage do
   Load token from the specified file.
   """
   def load(storage) do
-    token = File.read!(storage.file_path) |> JSEX.decode!
+    token = File.read!(storage.file_path) |> JSX.decode!
 
     access_token  = decrypt(token["access_token"], storage)
     refresh_token = decrypt(token["refresh_token"], storage)
