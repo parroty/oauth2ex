@@ -9,6 +9,6 @@
   "idna": {:hex, :idna, "1.0.1"},
   "jsx": {:hex, :jsx, "2.4.0"},
   "meck": {:hex, :meck, "0.8.2"},
-  "plug": {:hex, :plug, "0.8.4"},
+  "plug": {:hex, :plug, "0.9.0"},
   "ranch": {:hex, :ranch, "1.0.0"},
   "timex": {:hex, :timex, "0.13.2"}}
