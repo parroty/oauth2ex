@@ -78,12 +78,7 @@ defmodule OAuth2Ex.HTTP do
   end
 
   defp parse_as_query(url, params) do
-    url <> "?" <> parse_query_params(params)
-  end
-
-  defp parse_query_params(params) do
-    params |> Enum.map(fn({k,v}) -> "#{k}=#{v}" end)
-           |> Enum.join("&")
+    url <> "?" <> URI.encode_query(params)
   end
 
   defp parse_as_json([]), do: ""
