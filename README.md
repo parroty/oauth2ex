@@ -11,7 +11,7 @@ The `OAuth2Ex.Sample` modules contain several examples for OAuth2 providers like
 __It's pretty much work in progress yet, and APIs will likely to change.__
 
 ### Setup
-Specify `:oauth2ex` in the `appliations` and `deps" section in the mix.exs.
+Specify `:oauth2ex` in the `appliations` and `deps` section in the mix.exs.
 
 ```Elixir
 def application do
