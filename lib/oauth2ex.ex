@@ -43,7 +43,7 @@ defmodule OAuth2Ex do
       redirect_uri:  config.callback_url,
       response_type: config.response_type,
       scope:         config.scope
-    ] |> join
+    ] |> URI.encode_query
 
     config.authorize_url <> "?" <> query_params
   end
@@ -58,7 +58,7 @@ defmodule OAuth2Ex do
       redirect_uri:  config.callback_url,
       code:          code,
       grant_type:    "authorization_code"
-    ] |> join
+    ] |> URI.encode_query
 
     do_get_token(config, query_params)
   end
@@ -84,7 +84,7 @@ defmodule OAuth2Ex do
       client_id:     config.id,
       client_secret: config.secret,
       grant_type:    "refresh_token"
-    ] |> join
+    ] |> URI.encode_query
 
     new_token = %{do_get_token(config, query_params) | refresh_token: token.refresh_token, storage: token.storage}
     OAuth2Ex.Token.save!(new_token)
@@ -143,10 +143,5 @@ defmodule OAuth2Ex do
     Timex.Date.now
       |> Timex.Date.shift(secs: expires_in)
       |> Timex.Date.to_secs
-  end
-
-  defp join(params) do
-    params |> Enum.map(fn({k,v}) -> "#{k}=#{v}" end)
-           |> Enum.join("&")
   end
 end
