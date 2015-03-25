@@ -29,11 +29,11 @@ defmodule OAuth2Ex.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-      {:httpoison, "~> 0.5"},
-      {:exjsx, "~> 3.1.0"},
-      {:cowboy, "~> 1.0.0"},
-      {:plug, "~> 0.9.0"},
-      {:timex, "~> 0.12"},
+      {:httpoison, "~> 0.6"},
+      {:exjsx, "~> 3.1"},
+      {:cowboy, "~> 1.0"},
+      {:plug, "~> 0.11"},
+      {:timex, "~> 0.13"},
       {:excoveralls, "~> 0.3", only: [:dev, :test]},
       {:exvcr, "~> 0.3", only: [:dev, :test]}
     ]
