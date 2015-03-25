@@ -3,7 +3,7 @@ defmodule OAuth2Ex.Mixfile do
 
   def project do
     [app: :oauth2ex,
-     version: "0.0.7",
+     version: "0.0.8",
      elixir: "~> 1.0.0",
      description: description,
      package: package,
