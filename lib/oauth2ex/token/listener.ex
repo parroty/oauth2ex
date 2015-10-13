@@ -10,7 +10,7 @@ defmodule OAuth2Ex.Token.Listener do
   end
 
   def call(conn, options) do
-    conn = fetch_params(conn)
+    conn = fetch_query_params(conn)
     case conn.params["code"] do
       "" ->
         send_resp(conn, 500, "Invalid Request")
