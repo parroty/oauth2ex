@@ -4,7 +4,7 @@ defmodule OAuth2Ex.Mixfile do
   def project do
     [app: :oauth2ex,
      version: "0.0.8",
-     elixir: "~> 1.0.0",
+     elixir: "~> 1.0",
      description: description,
      package: package,
      test_coverage: [tool: ExCoveralls],
@@ -29,13 +29,13 @@ defmodule OAuth2Ex.Mixfile do
   # Type `mix help deps` for more examples and options
   defp deps do
     [
-      {:httpoison, "~> 0.6"},
-      {:exjsx, "~> 3.1"},
+      {:httpoison, "~> 0.7"},
+      {:exjsx, "~> 3.2"},
       {:cowboy, "~> 1.0"},
-      {:plug, "~> 0.11"},
-      {:timex, "~> 0.13"},
-      {:excoveralls, "~> 0.3", only: [:dev, :test]},
-      {:exvcr, "~> 0.3", only: [:dev, :test]}
+      {:plug, "~> 1.0"},
+      {:timex, "~> 0.19"},
+      {:excoveralls, "~> 0.4", only: :test},
+      {:exvcr, "~> 0.5", only: :test}
     ]
   end
 
