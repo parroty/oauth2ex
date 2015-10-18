@@ -100,6 +100,8 @@ response = OAuth2Ex.HTTP.get(token, "https://www.googleapis.com/bigquery/v2/proj
 # -> %HTTPoison.Response{body: "{\n \"kind\": \"bigquery#projectList...
 ```
 
+**Note:** There's a case that retrieving token fails with `(OAuth2Ex.Error) Error is returned from the server while getting tokens`, depending on the browser and its version. Please try with other browser if the problem still occurs.
+
 #### Encrypted token storage
 `OAuth2Ex.EncryptedStorage` module can be used as `:token_store` to save `access_token` and `refresh_token` in encrypted format.
 
