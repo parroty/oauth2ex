@@ -114,8 +114,8 @@ defmodule OAuth2Ex do
     ]
 
     HTTPoison.post!(config.token_url, [query_params], headers).body
-      |> JSX.decode!
-      |> parse_token(config)
+    |> JSX.decode!
+    |> parse_token(config)
   end
 
   defp parse_token(json, config) do
@@ -141,7 +141,7 @@ defmodule OAuth2Ex do
 
   defp calc_expires_at(expires_in) do
     Timex.Date.now
-      |> Timex.Date.shift(secs: expires_in)
-      |> Timex.Date.to_secs
+    |> Timex.Date.shift(secs: expires_in)
+    |> Timex.Date.to_secs
   end
 end

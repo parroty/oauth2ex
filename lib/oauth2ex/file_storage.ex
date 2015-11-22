@@ -20,7 +20,7 @@ defmodule OAuth2Ex.FileStorage do
   """
   def load(storage) do
     File.read!(storage.file_path)
-      |> JSX.decode!
-      |> OAuth2Ex.Token.merge_into_struct(%OAuth2Ex.Token{storage: storage})
+    |> JSX.decode!
+    |> OAuth2Ex.Token.merge_into_struct(%OAuth2Ex.Token{storage: storage})
   end
 end
