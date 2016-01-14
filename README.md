@@ -1,4 +1,4 @@
-# OAuth2Ex [![Build Status](https://secure.travis-ci.org/parroty/oauth2ex.png?branch=master "Build Status")](http://travis-ci.org/parroty/oauth2ex)
+# OAuth2Ex [![Build Status](https://secure.travis-ci.org/parroty/oauth2ex.png?branch=master "Build Status")](https://travis-ci.org/parroty/oauth2ex)
 
 
 An OAuth 2.0 client library for elixir. It provides the following functionalities.
@@ -160,7 +160,7 @@ defmodule OAuth2Ex.Sample.Google do
   @moduledoc """
   Sample setting for Google OAuth 2.0 API.
 
-  API: https://developers.google.com/accounts/docs/OAuth2
+  API: https://developers.google.com/identity/protocols/OAuth2
   """
 
   use OAuth2Ex.Client
@@ -185,7 +185,7 @@ defmodule OAuth2Ex.Sample.Google do
 
   @doc """
   List the projects by calling Google BigQuery API.
-  API: https://developers.google.com/bigquery/docs/reference/v2/#Projects
+  API: https://cloud.google.com/bigquery/docs/reference/v2/#Projects
   """
   def projects do
     response = OAuth2Ex.HTTP.get(token, "https://www.googleapis.com/bigquery/v2/projects")
