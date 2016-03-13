@@ -67,7 +67,7 @@ defmodule OAuth2Ex.HTTP do
   end
 
   defp decode_body(response) do
-    content_type = response.headers["Content-Type"]
+    content_type = response.headers[String.to_atom("Content-Type")]
     cond do
       content_type != nil and content_type =~ ~r/application\/json/i ->
         response.body |> JSX.decode!
