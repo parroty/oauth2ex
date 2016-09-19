@@ -34,7 +34,7 @@ defmodule OAuth2Ex.Token do
       {:ok, token} ->
         token
       {:error, token} ->
-        raise %OAuth2Ex.Error{message: "Failed to save token. Token.storage = #{inspect token.stoage}"}
+        raise OAuth2Ex.Error, message: "Failed to save token. Token.storage = #{inspect token.stoage}"
     end
   end
 
@@ -67,7 +67,7 @@ defmodule OAuth2Ex.Token do
   def browse_and_retrieve!(config, options \\ []) do
     case browse_and_retrieve(config, options) do
       {:error, message} ->
-        raise %OAuth2Ex.Error{message: message}
+        raise OAuth2Ex.Error, message: message
       {:ok, token} ->
         token
     end

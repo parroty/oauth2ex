@@ -9,7 +9,7 @@ defmodule OAuth2Ex.Client do
       A method to return OAuth2Ex.Config record by specifying required parameters.
       It should be overriden by the imported module.
       """
-      def config, do: raise %OAuth2Ex.Error{message: "config/0 is not implemented for the #{inspect __MODULE__}."}
+      def config, do: raise OAuth2Ex.Error, message: "config/0 is not implemented for the #{inspect __MODULE__}."
       defoverridable config: 0
 
       @doc """
@@ -21,8 +21,8 @@ defmodule OAuth2Ex.Client do
             token = OAuth2Ex.Token.load(storage)
             OAuth2Ex.ensure_token(config, token)
           _ ->
-            raise %OAuth2Ex.Error{
-              message: "token_store parameter is missing or invalid for the specified OAuth2Ex.Config struct: #{inspect config}."}
+            raise OAuth2Ex.Error,
+              message: "token_store parameter is missing or invalid for the specified OAuth2Ex.Config struct: #{inspect config}."
         end
       end
       defoverridable token: 0
