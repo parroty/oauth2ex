@@ -31,7 +31,7 @@ defmodule OAuth2Ex do
   end
 
   defp raise_param_error(key) do
-    raise %OAuth2Ex.Error{message: ":#{key} parameter is missing for the OAuth2Ex.config/1."}
+    raise OAuth2Ex.Error, message: ":#{key} parameter is missing for the OAuth2Ex.config/1."
   end
 
   @doc """
@@ -120,7 +120,7 @@ defmodule OAuth2Ex do
 
   defp parse_token(json, config) do
     if error = json["error"] do
-      raise %OAuth2Ex.Error{message: "Error is returned from the server while getting token. Error: #{error}. "}
+      raise OAuth2Ex.Error, message: "Error is returned from the server while getting token. Error: #{error}. "
     end
 
     token = %OAuth2Ex.Token{
