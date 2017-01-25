@@ -1,5 +1,6 @@
 # OAuth2Ex [![Build Status](https://secure.travis-ci.org/parroty/oauth2ex.png?branch=master "Build Status")](https://travis-ci.org/parroty/oauth2ex)
 
+__Note: This repository is not actively maintained. Please check the other libraries like [oauth2](https://hex.pm/packages/oauth2) instead.__
 
 An OAuth 2.0 client library for elixir. It provides the following functionalities.
 - OAuth token retrieval by communicating with OAuth 2.0 server.
@@ -8,7 +9,7 @@ An OAuth 2.0 client library for elixir. It provides the following functionalitie
 
 The `OAuth2Ex.Sample` modules contain several examples for OAuth2 providers like Google, GitHub and Dropbox.
 
-__It's pretty much work in progress yet, and APIs will likely to change.__
+It's pretty much work in progress yet, and APIs will likely to change.
 
 ### Setup
 Specify `:oauth2ex` in the `appliations` and `deps` section in the mix.exs.
