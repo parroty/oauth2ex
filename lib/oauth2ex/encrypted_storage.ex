@@ -38,7 +38,7 @@ defmodule OAuth2Ex.EncryptedStorage do
 
   def encrypt(nil, _storage), do: nil
   def encrypt(token, storage) do
-    iv     = :crypto.rand_bytes(storage.iv_bytes)
+    iv     = :crypto.strong_rand_bytes(storage.iv_bytes)
     cypher = :crypto.block_encrypt(storage.algorithm, hmac(storage), iv, token)
 
     b64_cypher = :base64.encode(cypher)
